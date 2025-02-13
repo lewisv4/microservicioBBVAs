@@ -78,3 +78,12 @@ JDBC URL: jdbc:h2:mem:testdb
 Usuario: sa
 
 Contraseña: (dejar en blanco)
+
+
+Ejecutar el jar
+
+java -jar target/tu-app-0.0.1-SNAPSHOT.jar
+
+Ubicacion del jar 
+bbva\target
+
