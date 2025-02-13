@@ -1,0 +1,5 @@
+com\test\bbva\BbvaApplication.class
+com\test\bbva\ClienteController\ClienteController.class
+com\test\bbva\model\Cliente.class
+com\test\bbva\repository\ClienteRepository.class
+com\test\bbva\service\ClienteService.class
