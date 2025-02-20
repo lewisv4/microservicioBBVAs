@@ -1,5 +1,5 @@
-INSERT INTO cliente (tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, telefono, direccion, ciudad_residencia, correo_electronico)
-VALUES ('C', '123456789', 'Juan', 'Carlos', 'Perez', 'Gomez', '3001234567', 'Calle 123', 'Bogota', 'juan.perez@example.com');
-
-INSERT INTO cliente (tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, telefono, direccion, ciudad_residencia, correo_electronico)
-VALUES ('P', '987654321', 'Maria', 'Fernanda', 'Lopez', 'Martinez', '3109876543', 'Carrera 4563', 'Medellin', 'maria.lopez@example.com');
+INSERT INTO clientes (tipo_documento, numero_documento, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, telefono, direccion, ciudad_residencia, correo)
+VALUES
+    ('C', '12345678', 'Juan', 'Carlos', 'Pérez', 'Gómez', '3201234567', 'Calle 123', 'Bogotá', 'juan@example.com'),
+    ('P', 'A9876543', 'Ana', 'María', 'López', 'Díaz', '3109876543', 'Carrera 45', 'Medellín', 'ana@example.com'),
+    ('C', '87654321', 'Luis', 'Alberto', 'Ramírez', 'Martínez', '3005671234', 'Avenida 50', 'Cali', 'luis@example.com');

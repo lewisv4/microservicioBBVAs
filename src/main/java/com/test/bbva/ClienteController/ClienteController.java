@@ -1,10 +1,13 @@
 package com.test.bbva.ClienteController;
 
 
+
+
+import com.test.bbva.dto.ClienteDTO;
 import com.test.bbva.model.Cliente;
 import com.test.bbva.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,78 +16,49 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
 
     @Autowired
-    private ClienteService clienteService;
+    private ClienteService service;
 
-    // GET: Obtener información de un cliente
+    // Obtener cliente
     @GetMapping("/{tipoDocumento}/{numeroDocumento}")
-    public ResponseEntity<Cliente> getCliente(
+    public ResponseEntity<?> getCliente(
             @PathVariable String tipoDocumento,
             @PathVariable String numeroDocumento,
-            @RequestParam(required = false) boolean withAddress) {
+            @RequestParam(required = false, defaultValue = "false") boolean withAddress) {
 
-        if (!tipoDocumento.equals("C") && !tipoDocumento.equals("P")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        Cliente cliente = clienteService.getCliente(tipoDocumento, numeroDocumento);
-
-        if (cliente != null) {
-            if (!withAddress) {
-                cliente.setDireccion(null);
-            }
-            return ResponseEntity.ok(cliente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        ClienteDTO cliente = service.obtenerCliente(tipoDocumento, numeroDocumento, withAddress);
+        return (cliente != null) ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
     }
 
-    // POST: Crear un nuevo cliente
-    @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-        if (cliente.getTipoDocumento() == null || cliente.getNumeroDocumento() == null) {
-            return ResponseEntity.badRequest().build();
-        }
+    // Crear cliente (POST)
+    @PostMapping("/{tipoDocumento}/{numeroDocumento}")
+    public ResponseEntity<Cliente> createCliente(
+            @PathVariable String tipoDocumento,
+            @PathVariable String numeroDocumento,
+            @Valid @RequestBody ClienteDTO dto) {
 
-        Cliente nuevoCliente = clienteService.createCliente(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCliente);
+        Cliente nuevoCliente = service.crearCliente(dto, tipoDocumento, numeroDocumento);
+        return ResponseEntity.ok(nuevoCliente);
     }
 
-    // PUT: Actualizar la información de un cliente
+    // Actualizar cliente (PUT)
     @PutMapping("/{tipoDocumento}/{numeroDocumento}")
-    public ResponseEntity<Cliente> updateCliente(
+    public ResponseEntity<?> updateCliente(
             @PathVariable String tipoDocumento,
             @PathVariable String numeroDocumento,
-            @RequestBody Cliente cliente) {
+            @Valid @RequestBody ClienteDTO dto) {
 
-        if (!tipoDocumento.equals("C") && !tipoDocumento.equals("P")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        Cliente clienteActualizado = clienteService.updateCliente(tipoDocumento, numeroDocumento, cliente);
-
-        if (clienteActualizado != null) {
-            return ResponseEntity.ok(clienteActualizado);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Cliente clienteActualizado = service.actualizarCliente(tipoDocumento, numeroDocumento, dto);
+        return (clienteActualizado != null) ? ResponseEntity.ok(clienteActualizado) : ResponseEntity.notFound().build();
     }
 
-    // DELETE: Eliminar un cliente
+    // Eliminar cliente (DELETE)
     @DeleteMapping("/{tipoDocumento}/{numeroDocumento}")
-    public ResponseEntity<Void> deleteCliente(
+    public ResponseEntity<?> deleteCliente(
             @PathVariable String tipoDocumento,
             @PathVariable String numeroDocumento) {
 
-        if (!tipoDocumento.equals("C") && !tipoDocumento.equals("P")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        boolean eliminado = clienteService.deleteCliente(tipoDocumento, numeroDocumento);
-
-        if (eliminado) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        boolean eliminado = service.eliminarCliente(tipoDocumento, numeroDocumento);
+        return eliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
+

@@ -27,35 +27,36 @@ Endpoints Disponibles
 
 Crear un Cliente
 
-curl -X POST "http://localhost:8080/api/clientes" \
-     -H "Content-Type: application/json" \
-     -d '{
-        "tipoDocumento": "C",
-        "numeroDocumento": "123456789",
-        "primerNombre": "Juan",
-        "segundoNombre": "Carlos",
-        "primerApellido": "Perez",
-        "segundoApellido": "Gomez",
-        "telefono": "3001234567",
-        "direccion": "Calle 123",
-        "ciudadResidencia": "Bogota",
-        "correoElectronico": "juan.perez@example.com"
-     }'
+URL: POST http://localhost:8090/api/clientes/C/98765432
+Body (JSON):
+{
+  "primerNombre": "Pedro",
+  "segundoNombre": "Luis",
+  "primerApellido": "González",
+  "segundoApellido": "Ruiz",
+  "telefono": "3205556789",
+  "direccion": "Carrera 90 #15-20",
+  "ciudadResidencia": "Bogotá",
+  "correo": "pedro@example.com"
+}
+
 
 Actualizar un Cliente
 
-curl -X PUT "http://localhost:8080/api/clientes/C/123456789" \
-     -H "Content-Type: application/json" \
-     -d '{
-        "primerNombre": "Juan",
-        "segundoNombre": "Carlos",
-        "primerApellido": "Perez",
-        "segundoApellido": "Gomez",
-        "telefono": "3001234567",
-        "direccion": "Calle 456",
-        "ciudadResidencia": "Medellin",
-        "correoElectronico": "juan.perez@example.com"
-     }'
+PUT http://localhost:8090/api/clientes/C/98765432
+
+{
+  "primerNombre": "Pedro",
+  "segundoNombre": "Luis",
+  "primerApellido": "Gómez",
+  "segundoApellido": "Ruiz",
+  "telefono": "3009998888",
+  "direccion": "Carrera 100 #20-30",
+  "ciudadResidencia": "Cali",
+  "correo": "pedro.gomez@example.com"
+}
+
+
 
 Eliminar un Cliente
 
@@ -63,13 +64,16 @@ curl -X DELETE "http://localhost:8080/api/clientes/C/123456789"
 
 Consultar un Cliente
 
-curl -X GET "http://localhost:8080/api/clientes/C/123456789?withAddress=true"
+http://localhost:8090/api/clientes/C/12345678
 
 Base de Datos H2
 
 Para acceder a la consola H2, ingresa en:
 
 http://localhost:8090/h2-console
+JDBC URL: jdbc:h2:mem:bbva_db
+User Name: sa
+Password: 
 
 Configuración de la Base de Datos
 
